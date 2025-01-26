@@ -5,7 +5,7 @@
     <div class="card shadow-lg ">
       <div class="card-header pb-0 pt-3 ">
         <div class="{{ (Request::is('rtl') ? 'float-end' : 'float-start') }}">
-          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
+          <h5 class="mt-3 mb-0">McCroc Forex Portal Settings</h5>
           <p>See our dashboard options.</p>
         </div>
         <div class="{{ (Request::is('rtl') ? 'float-start mt-4' : 'float-end mt-4') }}">
@@ -49,7 +49,7 @@
           <input class="form-check-input mt-1 ms-auto  {{ (Request::is('rtl') ? 'float-end' : '') }}"" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
         </div>
         <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-laravel" target="_blank">Free Download</a>
+        {{-- <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-laravel" target="_blank">Free Download</a>
         <a class="btn btn-outline-dark w-100" href="/documentation/getting-started/overview.html" target="_blank">View documentation</a>
         <div class="w-100 text-center">
           <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard-laravel" target="_blank" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
@@ -59,7 +59,7 @@
           </a>
           <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard-pro-laravel" class="btn btn-dark mb-0 me-2" target="_blank">
             <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
+          </a> --}}
         </div>
       </div>
     </div>

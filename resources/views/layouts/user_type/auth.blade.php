@@ -31,7 +31,17 @@
                 @yield('content')
             </div>
 
-        @elseif (\Request::is('virtual-reality')) 
+        @elseif (\Request::is('introducing-broker')) 
+            @include('layouts.navbars.auth.nav')
+            <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/vr-bg.jpg') ; background-size: cover;">
+                @include('layouts.navbars.auth.sidebar')
+                <main class="main-content mt-1 border-radius-lg">
+                    @yield('content')
+                </main>
+            </div>
+            @include('layouts.footers.auth.footer')
+
+        @elseif (\Request::is('introducing-broker')) 
             @include('layouts.navbars.auth.nav')
             <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/vr-bg.jpg') ; background-size: cover;">
                 @include('layouts.navbars.auth.sidebar')

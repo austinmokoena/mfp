@@ -36,6 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('chart');
 	})->name('chart');
 
+	Route::get('trade-with-us', function () {
+		return view('trade-with-us');
+	})->name('trade-with-us');
+
 	Route::get('profile', function () {
 		return view('profile');
 	})->name('profile');
@@ -52,13 +56,18 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('events');
 	})->name('events');
 
-    Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
+    Route::get('introducing-broker',
+	 [VaultMarketsController::class,
+	  'showIntroducingBroker'
+	  ])->name('introducing-broker');
 
     Route::get('static-sign-in', function () {
 		return view('static-sign-in');
 	})->name('sign-in');
+
+	Route::get('billing', function () {
+		return view('billing');
+	})->name('billing');
 
     Route::get('static-sign-up', function () {
 		return view('static-sign-up');
@@ -70,6 +79,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
+
+
+	Route::get('/leads', [VaultMarketsController::class, 'getLeads'])->name('ib');
+
+	// New route for creating leads
+	Route::post('create-lead', [VaultMarketsController::class, 'createLead'])->name('create-lead');
 });
 
 
@@ -96,7 +111,7 @@ Route::get('/forex/rates/{fromCurrency}/{toCurrency}', [ForexController::class, 
 Route::get('/forex/historical/{fromCurrency}/{toCurrency}', [ForexController::class, 'showHistoricalData']);
 
 
-Route::get('/leads', [VaultMarketsController::class, 'getLeads']);
+Route::get('/leads', [VaultMarketsController::class, 'getLeads'])->name('ib');
 
 
 

@@ -4,7 +4,7 @@
 
   <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-7">
     <div class="container">
-      <div class="row pt-10">
+      <div class="row pt-2">
         <div class="col-lg-1 col-md-1 pt-5 pt-lg-0 ms-lg-5 text-center">
           <a href="javascript:;" class="avatar avatar-md border-0" data-bs-toggle="tooltip" data-bs-placement="left" title="My Profile">
             <img class="border-radius-lg" alt="Image placeholder" src="../assets/img/team-1.jpg">
@@ -31,33 +31,39 @@
           </div>
           <div class="row mt-4">
             <div class="col-lg-4 col-md-4">
-              <div class="card move-on-hover overflow-hidden">
-                <div class="card-body">
-                  <div class="d-flex">
-                    <h6 class="mb-0 me-3">08:00</h6>
-                    <h6 class="mb-0">Synk up with Mark
-                      <small class="text-secondary font-weight-normal">Hangouts</small>
-                    </h6>
-                  </div>
-                  <hr class="horizontal dark">
-                  <div class="d-flex">
-                    <h6 class="mb-0 me-3">09:30</h6>
-                    <h6 class="mb-0">Gym <br />
-                      <small class="text-secondary font-weight-normal">World Class</small>
-                    </h6>
-                  </div>
-                  <hr class="horizontal dark">
-                  <div class="d-flex">
-                    <h6 class="mb-0 me-3">11:00</h6>
-                    <h6 class="mb-0">Design Review<br />
-                      <small class="text-secondary font-weight-normal">Zoom</small>
-                    </h6>
-                  </div>
-                </div>
-                <a href="javascript:;" class="bg-gray-100 w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
-                  <i class="fas fa-chevron-down text-primary"></i>
-                </a>
-              </div>
+              <!-- Create Lead Form -->
+        <h2>Create Lead</h2>
+        <form action="{{ route('create-lead') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="currency">Currency</label>
+                <input type="text" id="currency" name="currency" required>
+            </div>
+            <div class="form-group">
+                <label for="country_id">Country ID</label>
+                <input type="text" id="country_id" name="country_id" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Create Lead</button>
+            </div>
+        </form>
+
             </div>
             <div class="col-lg-4 col-md-4 mt-4 mt-sm-0">
               <div class="card bg-gradient-dark move-on-hover">
@@ -109,29 +115,53 @@
                 </div>
               </div>
               <div class="card move-on-hover mt-4">
-                <div class="card-body">
-                  <div class="d-flex">
-                    <p class="my-auto">Messages</p>
-                    <div class="ms-auto">
-                      <div class="avatar-group">
-                        <a href="javascript:;" class="avatar avatar-sm border-0 rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="2 New Messages">
-                          <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-sm border-0 rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="1 New Message">
-                          <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-sm border-0 rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="13 New Messages">
-                          <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-sm border-0 rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="7 New Messages">
-                          <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <!-- Client Activity Table -->
+        <h2>Client Activity</h2>
+        @if(isset($clientActivity['data']) && count($clientActivity['data']) > 0)
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($clientActivity['data'] as $activity)
+                        <tr>
+                            <td>{{ $activity['activity'] }}</td>
+                            <td>{{ $activity['date'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p class="no-data">No client activity found.</p>
+        @endif
               </div>
             </div>
+            <div style="background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 24px; width: 80%; max-width: 100%;">
+              <h1 style="font-size: 24px; font-weight: 600; margin-bottom: 20px; color: #4a4a4a;">Leads</h1>
+              @if(isset($leads['data']) && count($leads['data']) > 0)
+                  <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                      <thead>
+                          <tr>
+                              <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: 600; color: #555;">Name</th>
+                              <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: 600; color: #555;">Email</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($leads['data'] as $lead)
+                              <tr style="transition: background-color 0.2s;">
+                                  <td style="padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0;">{{ $lead['name'] }}</td>
+                                  <td style="padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0;">{{ $lead['email'] }}</td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+              @else
+                  <p style="text-align: center; color: #888; font-size: 16px;">No leads found.</p>
+              @endif
+          </div>
           </div>
         </div>
       </div>

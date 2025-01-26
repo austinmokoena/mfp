@@ -14,14 +14,50 @@ class VaultMarketsController extends Controller
         $this->vaultMarketsService = $vaultMarketsService;
     }
 
-    public function getLeads(Request $request)
+    public function showIntroducingBroker(Request $request)
     {
-        $user = 'your_user_id'; // Replace with your actual user ID
+        $user = 'CU858323'; // Replace with your actual user ID
         $fromDt = $request->input('from_dt'); // Optional: Format dd/mm/yyyy
         $toDt = $request->input('to_dt'); // Optional: Format dd/mm/yyyy
 
         $leads = $this->vaultMarketsService->getLeads($user, $fromDt, $toDt);
 
-        return view('leads', ['leads' => $leads]);
+        // Fetch client activity data
+        $clientActivity = $this->vaultMarketsService->getClientsActivity($user);
+
+        // Pass the data to the view
+        return view('introducing-broker', [
+            'leads' => $leads,
+            'clientActivity' => $clientActivity,
+        ]);
+    }
+
+    public function createLead(Request $request)
+    {
+        $user = 'your_user_id'; // Replace with your actual user ID
+
+        // Prepare the form data
+        $formData = [
+            'user' => $user,
+            'public_key' => config('vaultmarkets.public_key'),
+            'private_key' => config('vaultmarkets.private_key'),
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'currency' => $request->input('currency'),
+            'country_id' => $request->input('country_id'),
+            // Add other optional fields as needed
+        ];
+
+        // Call the API to create a lead
+        $response = $this->vaultMarketsService->createLead($formData);
+
+        // Redirect back with a success or error message
+        if ($response && $response['success']) {
+            return redirect()->route('introducing-broker')->with('success', 'Lead created successfully!');
+        } else {
+            return redirect()->route('introducing-broker')->with('error', 'Failed to create lead.');
+        }
     }
 }

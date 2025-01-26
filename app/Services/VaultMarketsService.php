@@ -48,5 +48,39 @@ class VaultMarketsService
         }
     }
 
+    public function createLead($formData)
+    {
+        try {
+            $response = $this->client->post('/gateway/ib/5/api.cfc?method=create_lead', [
+                'form_params' => $formData,
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (GuzzleException $e) {
+            \Log::error('Vault Markets API Error: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function getClientsActivity($user)
+    {
+        try {
+            $response = $this->client->post('/gateway/ib/5/api.cfc?method=get_clients_activity', [
+                'form_params' => [
+                    'user' => $user,
+                    'public_key' => $this->publicKey,
+                    'private_key' => $this->privateKey,
+                    'page_size' => 10,
+                    'page' => 1,
+                ],
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (GuzzleException $e) {
+            \Log::error('Vault Markets API Error: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     // Add more methods for other API endpoints (e.g., create_lead, get_clients_activity, etc.)
 }

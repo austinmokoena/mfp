@@ -395,7 +395,7 @@ database
 |       static-sign-in.blade.php
 |       static-sign-up.blade.php
 |       tables.blade.php
-|       virtual-reality.blade.php
+|       introducing-broker.blade.php
 |                      
 +---routes
 |       api.php
